@@ -8,6 +8,8 @@ class ListsController < ApplicationController
   def show
     @bookmark = Bookmark.new
     @bookmarks = @list.bookmarks
+    @review = Review.new
+    @reviews = @list.reviews
   end
 
   def new
