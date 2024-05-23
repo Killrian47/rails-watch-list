@@ -1,7 +1,5 @@
-<h1>Bookmarks#new</h1>
-<p>Find me in app/views/bookmarks/new.html.erb</p>
-
-<div class="container w-50">
+<h1 class="text-center my-5">Create a new bookmark</h1>
+<div class="container bg-white p-2 rounded shadow w-50">
   <%= simple_form_for [@list, @bookmark] do |f| %>
     <%= f.input :comment, label: "Comment" %>
     <%= f.association :movie, collection: Movie.all %>
