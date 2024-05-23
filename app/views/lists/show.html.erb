@@ -7,20 +7,30 @@
   </div>
 <% end %>
 
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bW92aWV8ZW58MHx8MHx8fDA%3D);">
-  <div class="container w-25">
+<div class="banner" style="position: relative; padding: 0; height: 450px; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bW92aWV8ZW58MHx8MHx8fDA%3D);">
+  <div class="btn btn-warning movie-count">
+    <p class="mb-0">Movie(s) (<%= @list.bookmarks.count %>)</p>
+  </div>
+  <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
     <h1 class="text-center"><%= @list.name %></h1>
   </div>
 </div>
 
 <div class="container w-50 mt-3">
-  <div class="d-flex justify-content-between">
-    <h3>All the comments </h3>
-    <%= link_to "Create a new comment", new_list_bookmark_path(@list), class: "btn btn-success" %>
+  <div class="mb-3">
+    <h3 class="mt-5">Create a new bookmark</h3>
+    <div class="container bg-white p-2 rounded shadow ">
+      <%= simple_form_for [@list, @bookmark] do |f| %>
+        <%= f.input :comment, label: "Comment" %>
+        <%= f.association :movie, collection: Movie.all, prompt: "Choose your movie" %>
+        <%= f.button :submit, class: "btn btn-primary" %>
+      <% end %>
+    </div>
   </div>
 
   <% if !@list.bookmarks.empty? %>
   <div class="row mb-3">
+    <h3>All the bookmarks </h3>
     <% @list.bookmarks.each do |bookmark| %>
       <div class="d-flex gap-5 align-items-center col-12 col-md-12 col-lg-4 mt-3">
         <div class="card">
@@ -36,6 +46,10 @@
     <% end %>
   </div>
   <% else %>
-    <h4 class="text-center mt-5">No comments yet</h4>
+    <h4 class="text-center mt-5">No bookmarks yet</h4>
   <% end %>  
+</div>
+
+<div class="container">
+
 </div>
