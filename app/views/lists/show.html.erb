@@ -1,0 +1,22 @@
+<% if flash[:notice] %>
+  <div class="flash flash-success alert alert-dismissible fade show" role="alert">
+    <span><%= flash[:notice] %> </span>
+    <a data-bs-dismiss="alert" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </a>
+  </div>
+<% end %>
+
+<h1 class="text-center my-3">List name: <strong><%= @list.name %></strong></h1>
+
+<div class="container w-50">
+  <%= link_to "New comment", new_list_bookmark_path(@list) %>
+  <h3>Comments: </h3>
+
+  <% @list.bookmarks.each do |bookmark| %>
+    <div class="d-flex gap-5 align-items-center">
+      <p class="mb-0"><%= bookmark.comment %> on <%= bookmark.movie.title %></p>
+      <%= link_to "Delete", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this bookmark?" } %>
+    </div>
+  <% end %>
+</div>
