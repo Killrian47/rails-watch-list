@@ -9,7 +9,7 @@ class ListsController < ApplicationController
   def show
     # Create a new bookmark instance to be used in the form
     @bookmark = Bookmark.new
-    # Check if there is a query in the params for a filter else show all bookmarks
+    # If there is a query in the params do a filter
     if params[:query]
       @bookmarks = []
       search_movie = Movie.where("title ILIKE ?", "%#{params[:query]}%")
@@ -18,6 +18,7 @@ class ListsController < ApplicationController
           bookmark.movie == movie ? @bookmarks << bookmark : nil
         end
       end
+    # Else show all bookmarks
     else
       @bookmarks = @list.bookmarks
     end
@@ -44,10 +45,12 @@ class ListsController < ApplicationController
 
   private
 
+  # Set the list instance to be used in the before action
   def set_list
     @list = List.find(params[:id])
   end
 
+  # Strong params for not getting other params
   def list_params
     params.require(:list).permit(:name, :photo)
   end
