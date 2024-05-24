@@ -2,17 +2,33 @@ class ListsController < ApplicationController
   before_action :set_list, only: %i[show]
 
   def index
+    # Get all lists
     @lists = List.all
   end
 
   def show
+    # Create a new bookmark instance to be used in the form
     @bookmark = Bookmark.new
-    @bookmarks = @list.bookmarks
+    # Check if there is a query in the params for a filter else show all bookmarks
+    if params[:query]
+      @bookmarks = []
+      search_movie = Movie.where("title ILIKE ?", "%#{params[:query]}%")
+      @list.bookmarks.each do |bookmark|
+        search_movie.each do |movie|
+          bookmark.movie == movie ? @bookmarks << bookmark : nil
+        end
+      end
+    else
+      @bookmarks = @list.bookmarks
+    end
+    # Create a new review instance to be used in the form
     @review = Review.new
+    # Return all reviews for the list
     @reviews = @list.reviews
   end
 
   def new
+    # Create a new list instance to be used in the form
     @list = List.new
   end
 
