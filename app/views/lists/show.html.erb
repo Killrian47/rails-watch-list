@@ -53,9 +53,10 @@
       </div>
     </div>
     <% @bookmarks.each do |bookmark| %>
+    <%= link_to movie_path(bookmark.movie), class: "nav-link" do %>
       <div class="d-flex gap-5 align-items-center col-12 col-md-12 col-lg-4 mt-3">
         <div class="card">
-          <img src="<%= bookmark.movie.poster_url %>" alt="movie poster">
+          <img src="<%= bookmark.movie.poster_url %>" alt="movie poster" class="card-img-top">
           <div class="card-body">
             <h6><%= bookmark.movie.title %> | <%= bookmark.movie.rating.round(1) %></h6>
             <% bookmark.movie.movie_tags.each do |movie_tag| %>
@@ -67,6 +68,7 @@
           </div>
         </div>
       </div>
+    <% end %>
     <% end %>
   </div>
   <% else %>
