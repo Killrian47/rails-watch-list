@@ -1,1 +1,8 @@
 // Specific CSS for your home-page
+.img-index {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  height: 200px;
+}

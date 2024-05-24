@@ -7,14 +7,25 @@
   </div>
 <% end %>
 
-<div class="banner" style="position: relative; padding: 0; height: 450px; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= cl_image_path @list.photo.key %>);">
-  <div class="btn btn-warning movie-count">
-    <p class="mb-0">Movie(s) (<%= @list.bookmarks.count %>)</p>
+<% if @list.photo.attached? %>
+  <div class="banner" style="position: relative; padding: 0; height: 450px; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= cl_image_path @list.photo.key %>);">
+    <div class="btn btn-warning movie-count">
+      <p class="mb-0">Movie(s) (<%= @list.bookmarks.count %>)</p>
+    </div>
+    <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+      <h1 class="text-center"><%= @list.name %></h1>
+    </div>
   </div>
-  <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
-    <h1 class="text-center"><%= @list.name %></h1>
+<% else %>
+  <div class="banner" style="position: relative; padding: 0; height: 450px; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bW92aWV8ZW58MHx8MHx8fDA%3D);">
+    <div class="btn btn-warning movie-count">
+      <p class="mb-0">Movie(s) (<%= @list.bookmarks.count %>)</p>
+    </div>
+    <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+      <h1 class="text-center"><%= @list.name %></h1>
+    </div>
   </div>
-</div>
+<% end %>
 
 <div class="container w-50 mt-3">
   <div class="mb-3">
@@ -30,7 +41,7 @@
 
   <% if !@list.bookmarks.empty? %>
   <div class="row mb-3">
-    <h3>All the bookmarks </h3>
+    <h3>All the bookmarks (<%= @list.bookmarks.count %>)</h3>
     <% @list.bookmarks.each do |bookmark| %>
       <div class="d-flex gap-5 align-items-center col-12 col-md-12 col-lg-4 mt-3">
         <div class="card">
@@ -53,6 +64,7 @@
 <div class="container my-5">
   <div class="row">
     <div class="col-8">
+      <h4>All the reviews (<%= @list.reviews.count %>)</h4>
       <% @list.reviews.each do |review| %>
         <div class="card">
           <div class="card-body">
